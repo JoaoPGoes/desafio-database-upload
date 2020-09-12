@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+
 import AppError from '../errors/AppError';
 
 import TransactionsRepository from '../repositories/TransactionsRepository';
@@ -9,7 +10,9 @@ class DeleteTransactionService {
 
     const transaction = await transactionsRepository.findOne(id);
 
-    if (!transaction) throw new AppError('Transaction doesn`t exist');
+    if (!transaction) {
+      throw new AppError('Transaction does not exist');
+    }
 
     await transactionsRepository.remove(transaction);
   }
